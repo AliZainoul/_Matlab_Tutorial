@@ -82,15 +82,29 @@ disp(myVector'); % displaying column vector
 %             char, logical, double, single and unsigned types
 
 myInteger1 = int8(3);
-myCharacter1 = 'A';
+myCharacter1 = 'A'
 class(myCharacter1)
 
-myString1 = "A";
+
+myCharacter1_ = "A"
+class(myCharacter1_)
+
+
+myString1 = "A"
 class(myString1)
+
+myString1_ = 'Forming a string from a char array.'
+myString2_ = "Forming a string from a char array."
+
+
+
 
 % Boolean
 myBoolean = true;
 myfalseBoolean = ~(~false);
+
+a = 2; b = -3; ; c = 5.4 ; myBoolean = (a==b); z = 2 + 2i; ...
+aChar = 'c'; alongChar = 'Hello k'; aString = "oui"; whos
 
 % Utility methods
 intmin('int8')
@@ -189,6 +203,9 @@ sprintf('8 / 3 = %d', 8/3)
 sprintf('8 ^ 3 = %d', 8^3)
 sprintf('8 %% 3 = %d', mod(8,3))
 
-% Writing External functions 
-mean([4, 2])
-%my_mean([1 2 3]);
+% Writing External functions, they have to be in the same directory
+% e.g /Users/home/Documents/MATLAB/Examples/matlab/_matlab_etc_ac
+%      test.m | main.m
+m_ = mean([1 2 3 4])
+my_m = my_mean([1 2 3 4])
+test_my_mean = (m_ == my_m)
