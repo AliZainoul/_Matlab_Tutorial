@@ -67,7 +67,9 @@ disp(myVector'); % displaying column vector
 % See: https://fr.wikipedia.org/wiki/Vecteur
 % for definition of a vector.
 % All we need here, is to know that a vector 
-% is of the form: v = [v1, v2, ..., vn] (line vector)
+% is of the form: v = [v1, v2, ... , vn] (line vector)
+% and             w = [v1; v2; ... ; vn]' (column vector)
+% We say that:    v' = w (the symbol ' refers to Transpose)
 % e.g. : v = [1, 2, 3] or w = [1 2 3]
 % the two methods are valid in Matlab
 % BTW: the keyword ' is for transposing a vector
