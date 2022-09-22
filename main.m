@@ -105,8 +105,12 @@ myString2_ = "Forming a string from a char array."
 myBoolean = true;
 myfalseBoolean = ~(~false);
 
-a = 2; b = -3; ; c = 5.4 ; myBoolean = (a==b); z = 2 + 2i; ...
+
+%{
+a = 2; b = -3; c = 5.4 ; myBoolean = (a==b); z = 2 + 2i; ...
 aChar = 'c'; alongChar = 'Hello k'; aString = "oui"; whos
+%}
+
 
 % Utility methods
 intmin('int8')
