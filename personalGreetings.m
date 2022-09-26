@@ -11,7 +11,7 @@ name = input(' What''s your name? ', 's');
 % Checking if there is an entry, then printing the name 
 % otherwise do nothing
 myGreetings = hello_name(name);
-if ~isempty(name)
+if ~isempty(myGreetings)
     disp(myGreetings)
 end
 % A statement of type "if" must have an "end" keyword
