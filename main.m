@@ -214,4 +214,7 @@ sprintf('8 %% 3 = %d', mod(8,3))
 %      test.m | main.m
 m_ = mean([1 2 3 4])
 my_m = my_mean([1 2 3 4])
+my_average = calculateAverage([1 2 3 4])
 test_my_mean = (m_ == my_m)
+test_my_average = (m_ == my_average)
+

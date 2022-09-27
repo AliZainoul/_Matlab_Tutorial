@@ -75,7 +75,6 @@ myInteger1 = int8(3);
 myCharacter1 = 'A'
 class(myCharacter1)
 
-
 myCharacter1_ = "A"
 class(myCharacter1_)
 
@@ -85,8 +84,6 @@ class(myString1)
 
 myString1_ = 'Forming a string from a char array.'
 myString2_ = "Forming a string from a char array."
-
-
 
 
 % Boolean / logical
