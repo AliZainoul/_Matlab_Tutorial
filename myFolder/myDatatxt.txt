@@ -1,0 +1,10 @@
+CoinName, Symbol, Date, Price
+
+Bitcoin/Dollar, BTCUSD, 03/11/2022, 19383
+Ethereum/Dollar, ETHUSD, 03/11/2022, 1234
+Bitcoin/Dollar, BTCUSD, 02/11/2022, 19200
+Ethereum/Dollar, ETHUSD, 02/11/2022, 1100
+Bitcoin/Dollar, BTCUSD, 01/11/2022, 18000
+Ethereum/Dollar, ETHUSD, 01/11/2022, 1102
+Bitcoin/Dollar, BTCUSD, 30/10/2022, 18900
+Ethereum/Dollar, ETHUSD, 30/10/2022, 1222
