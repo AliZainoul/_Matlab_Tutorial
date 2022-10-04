@@ -21,4 +21,10 @@ T = table(ID,Age,mainCourse, ...
     'RowNames',Students)
 
 % Writing contents of the table into a txt file named myStudentsExample
+% Please refer to the documentation:
+% https://fr.mathworks.com/help/matlab/ref/writetable.html
 writetable(T,'myStudentsExample.txt','WriteRowNames',true)
+
+% The option WriteRowNames settled to true indicates to
+% writetable function to include the row names from T in the output,
+% the default behaviour is false.
