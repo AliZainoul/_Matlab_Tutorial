@@ -21,9 +21,9 @@ disp('Concatenated cell array:');
 disp(concatenated_cell);
 
 % Converting cells to array
-cell_to_array = cell2mat(cell_array{3}); % Converts the third cell to array
-disp('Converted cell to array:');
-disp(cell_to_array);
+% cell_to_array = cell2mat(cell_array); % Converts the cell to array if elements of the cell are the same
+% disp('Converted cell to array:');
+% disp(cell_to_array);
 
 % Adding elements to a cell
 cell_array{end+1} = 'new element'; % Adding a new element to the end
