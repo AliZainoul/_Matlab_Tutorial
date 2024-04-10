@@ -63,3 +63,22 @@ disp(inverse_result);
 sequential_matrix = [1:3; 4:6; 7:9];
 disp('Sequential Matrix:');
 disp(sequential_matrix);
+
+Retrieving vectors using : colon operator
+% First row
+first_row = matrix1(1, :);
+
+% Second row
+second_row = matrix1(2, :);
+
+% Third row
+third_row = matrix1(3, :);
+
+% First column
+first_column = matrix1(:, 1);
+
+% Second column
+second_column = matrix1(:, 2);
+
+% Third column
+third_column = matrix1(:, 3);
