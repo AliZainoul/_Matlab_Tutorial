@@ -44,4 +44,8 @@ for i = 1 : width(arrayTable)
     disp(arrayTable.("person"+num2str(i)).age)
     disp(arrayTable.("person"+num2str(i)).gender)
     disp(arrayTable.("person"+num2str(i)).address)
+<<<<<<< HEAD
 end
+=======
+end
+>>>>>>> 03ad5908877b7a96e903ebe343200b236695516f
