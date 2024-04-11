@@ -31,4 +31,4 @@ b =
 
 Solution of the linear system Ax = b:
     4.5714    3.3571    2.2857   -2.5714
-}%
+%}
