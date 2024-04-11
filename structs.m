@@ -1,38 +1,47 @@
 % Define a struct with fields
-person.name = 'John Doe';
-person.age = 30;
-person.gender = 'Male';
-
-% Display the struct
-disp(person);
+person1.name = 'John Doe';
+person1.age = 30;
+person1.gender = 'Male';
 
 % Accessing struct fields
-fprintf('Name: %s\n', person.name);
-fprintf('Age: %d\n', person.age);
-fprintf('Gender: %s\n', person.gender);
+fprintf('Name: %s\n', person1.name);
+fprintf('Age: %d\n', person1.age);
+fprintf('Gender: %s\n', person1.gender);
+
+% Display the struct
+% disp(person1);
 
 % Modifying struct fields
-person.age = 35;
-person.gender = 'Female';
+person1.age = 35;
+person1.gender = 'Female';
 
-% Display the modified struct
-disp(person);
+% Display the struct
+disp(person1);
 
 % Define a nested struct
-address.street = '123 Main St';
-address.city = 'Anytown';
-address.zipcode = '12345';
+address1.street = '123 Main St';
+address1.city = 'Anytown';
+address1.zipcode = '12345';
 
-person.address = address;
+person1.address = address1;
 
 % Display the nested struct
-disp(person);
+disp(person1);
 
-% Define an array of structs
-people(1).name = 'Alice';
-people(1).age = 25;
-people(2).name = 'Bob';
-people(2).age = 28;
+person2 = struct("name",'Ali ZAINOUL', "age", 30, "gender", 'Male')
+disp(person2);
+% Define a nested struct
+address2.street = 't';
+address2.city = 'Casablanca';
+address2.zipcode = '123456';
+person2.address = address2;
 
-% Display the array of structs
-disp(people);
+
+arrayTable = table(person1, person2);
+
+for i = 1 : width(arrayTable)
+    disp(arrayTable.("person"+num2str(i)).name)
+    disp(arrayTable.("person"+num2str(i)).age)
+    disp(arrayTable.("person"+num2str(i)).gender)
+    disp(arrayTable.("person"+num2str(i)).address)
+end
