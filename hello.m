@@ -17,5 +17,9 @@ format compact
 % https://www.mathworks.com/help/matlab/ref/fprintf.html
 % Prints the same result, the literal text has to be between
 % signe quotes ' my text ' or double quotes " my text " 
-fprintf(' Hello world, ')
-fprintf(" Hello world again \n ")
+
+s1 = ' Hello world again \n ';
+s2 = " Hello world again \n ";
+fprintf(s1)
+fprintf(s2)
+

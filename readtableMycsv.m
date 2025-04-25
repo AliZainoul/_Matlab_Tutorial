@@ -16,8 +16,7 @@ myFilename = 'myFolder/_Koinly_Kickex_Deposits.csv';
 % Label:            string represented by %s
 % Description:      string represented by %s
 % TxHash:           string represented by %s
-T = readtable (myFilename, 'Format', '%s%f%s%f%s%f%f%f%f%s%s%s', ...
-    VariableNamingRule = 'preserve')
+T = readtable (myFilename,'Format','%s%f%s%f%s%f%f%f%f%s%s%s',"VariableNamingRule","preserve")
 
 % VariableNamingRule = 'preserve' as a option :
 % "preserve" — Preserve variable names that are not valid 

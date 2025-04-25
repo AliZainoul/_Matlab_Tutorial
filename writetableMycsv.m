@@ -1,6 +1,9 @@
 % For CSV files, we will use the same example as before, for the sake of
 % clarity, I've separated the two files, remember to DRY normally !
 
+% Declaring a column vector named "mainCourse" (5x1) of type  example as before, for the sake of
+% clarity, I've separated the two files, remember to DRY normally !
+
 % Declaring a cell array named "Students"
 Students = {'O''sullivan';'James';'Eloise';'Dina';'Yves'};
 

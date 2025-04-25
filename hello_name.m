@@ -1,4 +1,4 @@
-function [greetings] = hello_name ( name )
+function [greetings] = hello_name(name)
     if ~isempty(name)
         myHello = "Hello ";
         % strcat
