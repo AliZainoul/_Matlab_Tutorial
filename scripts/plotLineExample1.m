@@ -22,3 +22,15 @@ legend('sin(x)','sin(x-0.25)','sin(x-0.5)', 'cos(x)')
 xlabel('Values of x on interval [0, 2pi]')
 % Adding a ylabel, same applies, the ylabel has to be under the plot fct
 ylabel('Values of sin(x), sin(x-0.25), sin(x-0.5) and cos(x) respectively')
+
+% [ymin,idx_min] = min(y1(1:length(y1)/2)) ;
+% [ymax,idx_max] = max(y1) ;
+
+hold on
+% 
+% text(x(idx_min),ymin,['ymin: ' num2str(ymin)]);
+% text(x(idx_max),ymax,['ymax: ' num2str(ymax)]);
+
+% xlim([0 pi])
+ylim([0 1])
+
