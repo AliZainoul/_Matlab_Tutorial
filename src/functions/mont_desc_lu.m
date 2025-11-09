@@ -1,5 +1,6 @@
-function [x] = mont_desc_lu (L,A,b)
-[n,n] = size (A);
+function [x] = mont_desc_lu(L,A,b)
+[~,n] = size (A);
+y = zeros(n);
 y(1) = b(1);
 for i = 2 : n
     S1 = 0;

@@ -1,4 +1,4 @@
-function setGlobalx ( value ) 
+function set_global(value) 
     global x;
     x = value;
 end

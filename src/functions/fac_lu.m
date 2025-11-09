@@ -1,7 +1,7 @@
-function [L,A] = fac_lu(A)
-[n,n] = size (A);
-L = eye (n);
-U = eye (n);
+function [L, A] = fac_lu(A)
+[~,n] = size(A);
+L = eye(n);
+U = eye(n);
 for k = 1 : n-1
     for i = k+1 : n
         L(i,k) = A(i,k) / A(k,k);

@@ -11,15 +11,21 @@
 
 % Compact format see : 
 % https://www.mathworks.com/help/matlab/matlab_env/format-output.html
-format compact 
+format compact
+
 % Printing literal text into screen
 % Documentation of fprintf: 
 % https://www.mathworks.com/help/matlab/ref/fprintf.html
 % Prints the same result, the literal text has to be between
-% signe quotes ' my text ' or double quotes " my text " 
+% signe quotes ' my text ' or double quotes " my text "
 
-s1 = ' Hello world again \n ';
-s2 = " Hello world again \n ";
-fprintf(s1)
-fprintf(s2)
+disp("Hello World")
+fprintf("Hello World \n")
+sprintf("Hello world")
 
+array_of_characters = 'Hello world again \n';
+a_string = "Hello world again \n";
+fprintf(array_of_characters)
+fprintf(a_string)
+
+% Creates a variable in the workspace named ans (default var)

@@ -2,17 +2,17 @@
 % https://www.mathworks.com/help/matlab/matlab_env/format-output.html
 format compact 
 
-% Creating a variable named " name ", and assigning to it
+% Creating a variable named "name", and assigning to it
 % an input value of type string i.e: 's'
-% input(...) is a keyword! More examples will be shown
+% input(...) is a keyword, more examples will be shown
 % See: https://www.mathworks.com/help/matlab/ref/input.html
-name = input(' What''s your name? ', 's');
+name = input('What is your name? ', 's');
 
 % Checking if there is an entry, then printing the name 
 % otherwise do nothing
-myGreetings = hello_name(name);
-if ~isempty(myGreetings)
-    disp(myGreetings)
+greetings = hello_name(name);
+if ~isempty(greetings)
+    disp(greetings)
 end
 % A statement of type "if" must have an "end" keyword
 % i.e: if condition 
