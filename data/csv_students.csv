@@ -1,5 +1,5 @@
-Row,ID,Age,mainCourse
-O'sullivan,53525,19,Linear Algebra
+student,id,age,course
+Ali,53525,19,Linear Algebra
 James,53345,22,C++ programming
 Eloise,65232,18,Data Analysis
 Dina,27535,21,Data scrapping
