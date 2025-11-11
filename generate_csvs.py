@@ -39,4 +39,4 @@ if __name__ == '__main__':
     create_population_csv()
     create_series_csvs()
     create_data_csv()
-    print("✅ All CSV files created successfully.")
+    print("All CSV files created successfully.")

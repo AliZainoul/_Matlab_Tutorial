@@ -1,3 +1,7 @@
+# =========================================================================
+# Python
+# =========================================================================
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -34,8 +38,6 @@ env.bak/
 venv.bak/
 
 # PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
 *.manifest
 *.spec
 
@@ -63,21 +65,59 @@ coverage.xml
 # pyenv
 .python-version
 
-# mypy
+# Type checkers
 .mypy_cache/
 .dmypy.json
-
-# Pyre type checker
 .pyre/
-
-# pytype static type analyzer
 .pytype/
 
 # Cython debug symbols
 cython_debug/
 
-# DB
+# Databases
 *.db
 
-# MAT 
+# =========================================================================
+# MATLAB
+# =========================================================================
+
+# MATLAB generated files
+*.asv
+*.fig
 *.mat
+*.mex*
+*.mdl
+*.slx
+*.mexa64
+*.mexmaci64
+*.mexw64
+*.mexw32
+*.mexglx
+
+# Temporary files
+*.autosave
+*.mltbx
+*.log
+*.tmp
+*.bak
+*.old
+*.DS_Store
+
+# =========================================================================
+# Data / Output
+# =========================================================================
+
+# CSV and TXT data files (generated)
+data/*.csv
+data/*.txt
+
+# Figures / images
+fig/*.png
+fig/*.jpg
+fig/*.jpeg
+
+# =========================================================================
+# Corrections
+# =========================================================================
+
+exercices/TPs_Corrections/
