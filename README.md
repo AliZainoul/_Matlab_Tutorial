@@ -46,22 +46,20 @@ This repository contains MATLAB tutorials, exercises, and scripts designed to he
 
 ## Getting Started
 
-1. **Clone the repository:**
+- **Clone the repository:**
 
 ```bash
 git clone <repository-url>
 cd _Matlab_Tutorial
 ```
 
-2. **Ensure MATLAB is installed**  
-   MATLAB R2019a or newer is recommended for full compatibility.
+- **Ensure MATLAB is installed**
+    MATLAB R2019a or newer is recommended for full compatibility.
 
-3. **Run scripts in MATLAB**  
-
+- **Run scripts in MATLAB**
    Open MATLAB, navigate to the scripts folder, and run the desired script. For example:
 
 ```matlab
 cd src/scripts
 main   % Example entry point; many other scripts are available in this folder
 ```
-
