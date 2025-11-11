@@ -1,36 +1,57 @@
+%% =========================================================================
+% Script: plot_multiple_trig_functions.m
+%
+% Description:
+%   This script demonstrates plotting multiple trigonometric functions
+%   (sin and cos) over the interval [0, 2*pi]. It shows how to overlay
+%   several functions on a single figure using different line styles,
+%   and how to customize titles, labels, legends, and axes.
+%
+% Variables:
+%   x  : 1xN double vector
+%        Discretized points in [0, 2*pi] with step pi/100 (N = 201)
+%
+%   y1 : 1xN double vector
+%        sin(x) values
+%
+%   y2 : 1xN double vector
+%        sin(x-0.25) values
+%
+%   y3 : 1xN double vector
+%        sin(x-0.5) values
+%
+%   y4 : 1xN double vector
+%        cos(x) values
+%
+% Usage:
+%   Run the script in MATLAB:
+%       >> plot_multiple_trig_functions
+%
+% Reference:
+%   MATLAB documentation for plotting:
+%   https://fr.mathworks.com/help/matlab/ref/plot.html
+%
+% =========================================================================
+
+%% Step 1: Define x values
 x = 0:pi/100:2*pi;
-% same as the previous example
-y1 = sin(x);
-% same as the previous example, here y1 refers to be an array or vector
-% of size 1xn, where in this example n = 201. (201 values from 0 to 2pi)
-y2 = sin(x-0.25);
-y3 = sin(x-0.5);
-y4 = cos(x);
-% y2, y3, and y4 are the same than y1, they represent vectors/arrays in
-% this context
-% declaring the figure
+% x is a 1xN vector over [0, 2*pi] with step pi/100
+
+%% Step 2: Compute trigonometric functions
+y1 = sin(x);        % sin(x)
+y2 = sin(x-0.25);   % sin(x - 0.25)
+y3 = sin(x-0.5);    % sin(x - 0.5)
+y4 = cos(x);        % cos(x)
+
+%% Step 3: Plot the functions
 figure
-% main plot function, where we plot values of x versus values of 
-% y1, y2, y3 and y4 respectively, the first two functions are default
-% plotted, while the y3 have a linspace of ':' and y4 the linspace '-.'
-plot(x,y1,x,y2,'--',x,y3,':', x, y4, '-.')
-% Adding a title, always have to be under the plot function
-title('Plot of sin(x), sin(x-0.25), sin(x-0.5) and cos(x) in [0, 2pi]')
-% Adding a legend, same applies, the legend has to be under the plot fct
+plot(x, y1, x, y2, '--', x, y3, ':', x, y4, '-.')
+title('Plot of sin({x, x-0.25 x-0.5}) and cos(x) in [0, 2\pi]')
 legend('sin(x)','sin(x-0.25)','sin(x-0.5)', 'cos(x)')
-% Adding a xlabel, same applies, the xlabel has to be under the plot fct
-xlabel('Values of x on interval [0, 2pi]')
-% Adding a ylabel, same applies, the ylabel has to be under the plot fct
-ylabel('Values of sin(x), sin(x-0.25), sin(x-0.5) and cos(x) respectively')
+xlabel('Values of x on interval [0, 2\pi]')
+ylabel('Values of sin({x, x-0.25 x-0.5}) and cos(x) in [0, 2\pi] resp.')
 
-% [ymin,idx_min] = min(y1(1:length(y1)/2)) ;
-% [ymax,idx_max] = max(y1) ;
-
+%% Step 4: Customize axes
 hold on
-% 
-% text(x(idx_min),ymin,['ymin: ' num2str(ymin)]);
-% text(x(idx_max),ymax,['ymax: ' num2str(ymax)]);
-
-% xlim([0 pi])
-ylim([0 1])
-
+ylim([-1 1])
+% Optional: Use xlim([0 pi]) to zoom into a specific interval
