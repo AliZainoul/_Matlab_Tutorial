@@ -1,25 +1,51 @@
-% An Example taken from the official documentation
-% See: https://fr.mathworks.com/help/matlab/ref/imwrite.html
+%% Description
+% This script demonstrates how to create a grayscale image from a matrix
+% of double values and save it as a PNG file using `imwrite`. It also shows
+% how to read the saved image back into MATLAB and display it.
+%
+% Steps:
+% 1. Generate a 250x250 matrix of double values uniformly distributed in [0,1].
+% 2. Write the matrix as a grayscale image to a PNG file using `imwrite`.
+% 3. Read the saved image using `imread`.
+% 4. Display the image using `image`.
+%
+% Variables:
+%   A       - 250x250 matrix of double values in the interval [0,1]. Each
+%             value corresponds to a pixel intensity in the grayscale image.
+%   myimg   - Image matrix read from the saved PNG file. Typically an
+%             uint8 matrix after reading with imread.
+%
+% Notes:
+% - For grayscale or RGB images of type double or single:
+%     * `imwrite` assumes the dynamic range is [0,1].
+%     * Values are automatically scaled to [0,255] when saving as 8-bit PNG.
+% - If the input matrix is of type single, convert to double before saving
+%   to GIF or TIFF to avoid unexpected scaling.
+% - `image(myimg)` displays the image. For proper intensity scaling,
+%   `imshow(myimg)` can also be used.
+%
+% imwrite is essential in production MATLAB workflows whenever:
+%   You need to save processed or generated images.
+%   You are creating datasets for ML/DL.
+%   You are converting image formats.
+%   You are generating visual outputs for reports or GUIs.
+%   You need to integrate MATLAB with ext. systems that require img. files.
+%
+% Reference:
+% - MATLAB documentation for `imwrite`: 
+%   https://fr.mathworks.com/help/matlab/ref/imwrite.html
 
-% Working on this case: 
+%% Code
+% Generate a 250x250 matrix of double values in [0,1]
+A = rand(250);
 
-%   If A is a grayscale or RGB color image of data type double or single, 
-%   then imwrite assumes that the dynamic range is [0, 1] and automatically
-%   scales the data by 255 before writing it to the file as 8-bit values. 
-%   If the data in A is single, convert A to double before writing to a GIF 
-%   or TIFF file.
+% Write the matrix to a PNG file as a grayscale image
+imwrite(A, "fig/img.png"); % Creates myGray.png (grayscale image)
 
+% Read the saved image back into MATLAB
+myimg = imread('fig/img.png');
 
-% Generate 250x250 double values ranging from 0 to 1. 
-A = rand(250); 
-
-
-% Writing the values of A as pixels into myGray.png
-imwrite(A,"fig/myGray.png") 
-% myGray.png is a file created after this function!
-
-% In order to read the image
-myimg = imread('fig/myGray.png');
-
-% In order to display the image
-image(myimg)
+% Display the image
+image(myimg);
+axis off;          % optional: hide axis ticks
+axis image;        % optional: keep square pixels
