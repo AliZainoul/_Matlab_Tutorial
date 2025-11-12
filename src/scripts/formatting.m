@@ -2,11 +2,9 @@
 % It also illustrates single-line and multi-line comments and custom formatting.
 
 %{
-    ???????????????????????????????????????????????????????????????
     This is a multiline comment
     Comments can span multiple lines when enclosed between
     %{ and %}
-    ???????????????????????????????????????????????????????????????
 %}
 
 %% Compact display format
@@ -23,7 +21,7 @@ d_string = " and this is d";
 e_string = b_string + newline + d_string; % string concatenation example
 f_char_array = 'A char array example';
 
-%% ????????????? DISP EXAMPLES ?????????????
+%% DISP EXAMPLES
 
 print_line('#', 50, 'DISP EXAMPLES')
 
@@ -40,8 +38,8 @@ disp('Hello, world!')
 disp("Hello again!")
 
 % Display an array
-matrix_a = [12.7 5.02 -98 63.9 0 -.2 56];
-disp(matrix_a)
+line_vector = [12.7 5.02 -98 63.9 0 -.2 56];
+disp(line_vector)
 
 % Display a cell array
 cell_example = {'text', [4 5 6], 3+2i};
@@ -61,7 +59,7 @@ disp(f_char_array)
 
 print_line('#', 50, 'END DISP EXAMPLES')
 
-%% ????????????? FPRINTF EXAMPLES ?????????????
+%% FPRINTF EXAMPLES
 print_line('#', 50, 'FPRINTF EXAMPLES')
 
 % FPRINTF examples from MATLAB documentation
@@ -77,12 +75,12 @@ fprintf("My name is %s, and I am %d years old.\n", name, age)
 
 % Formatting numeric values
 fprintf("Pi to 4 decimal places: %.4f\n", pi)
-fprintf("Scientific notation: %e\n", pi)
+fprintf("Scientific notation: %e\n", 148.8)
 
 % Formatting multiple values in a matrix
 magic_matrix = magic(3);
 fprintf('3x3 Magic square (formatted):\n')
-fprintf('%6.2f %6.2f %6.2f\n', magic_matrix)
+fprintf('%1.2f %1.2f %1.2f\n', magic_matrix)
 
 % Write to a file
 PATH = 'data/example_output.txt';
@@ -90,12 +88,9 @@ file_id = fopen(PATH, 'w');
 fprintf(file_id, 'This is written to a file: %s\n', datestr(now));
 fclose(file_id);
 
-
 print_line('#', 50, 'END FPRINTF EXAMPLES')
 
-
-
-%% ????????????? SPRINTF EXAMPLES ?????????????
+%% SPRINTF EXAMPLES
 
 print_line('#', 50, 'SPRINTF EXAMPLES')
 
@@ -116,21 +111,28 @@ disp(str_multiline)
 
 % Create formatted string from array data
 numeric_array = [1.2345, 6.789, 10.1112];
-str_values = sprintf('Values: %.2f, %.2f, %.2f', numeric_array);
-disp(str_values)
+char_values = sprintf('Values: %.2f, %.2f, %.2f \n', numeric_array);
+disp(char_values)
 
 % Using string array inputs with SPRINTF
 animal_names = ["cat", "dog", "fish"];
-animal_counts = [4, 6, 2];
+animal_counts = [4, 1, 2];
 
 % Initialize an empty string to accumulate the result
-str_animals = "";
+str_animals = ""; % or call to constructor str_animals = string()
 
 % Loop through each animal and format a line of text
-for i = 1:numel(animal_names)
+for i = 1:length(animal_names) % or numel()
     % SPRINTF formats and returns a string (does not print to screen)
-    str_animals = str_animals + sprintf('There are %d %s(s).\n', ...
+    if animal_counts(i) > 1
+        str_animals = str_animals + sprintf('There are %d %ss.\n', ...
                                         animal_counts(i), animal_names(i));
+    
+    else
+        str_animals = str_animals + sprintf('There is %d %s.\n', ...
+                                        animal_counts(i), animal_names(i));
+    end
+    % TODO: simplify and DRY this example
 end
 
 % Display the concatenated result
@@ -145,7 +147,7 @@ print_line('#', 50, 'END SPRINTF EXAMPLES')
 
 
 
-%% ????????????? FUNCTION DEFINITION ?????????????
+%% ----------- FUNCTION DEFINITION -----------
 function print_line(token, n, msg)
 %PRINT_LINE Display a horizontal line of repeated characters or strings, optionally with a centered message.
 %   PRINT_LINE(TOKEN, N) displays a horizontal line consisting of TOKEN 
