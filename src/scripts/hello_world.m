@@ -19,13 +19,27 @@ format compact
 % Prints the same result, the literal text has to be between
 % signe quotes ' my text ' or double quotes " my text "
 
-disp("Hello World")
-fprintf("Hello World \n")
-sprintf("Hello world")
+fprintf("\n");
+disp("----- First example -----");
+fprintf("\n");
+disp("Hello World");
+fprintf("Hello World \n");
+msg_1 = sprintf("Hello world");
 
+fprintf("\n");
+disp("----- Second example -----");
+fprintf("\n");
 array_of_characters = 'Hello world again \n';
+disp(array_of_characters);
+fprintf(array_of_characters);
+msg_2 = sprintf(array_of_characters);
+
+fprintf("\n");
+disp("----- Third example -----");
+fprintf("\n");
 a_string = "Hello world again \n";
-fprintf(array_of_characters)
-fprintf(a_string)
+disp(a_string);
+fprintf(a_string);
+msg_3 = sprintf(a_string);
 
 % Creates a variable in the workspace named ans (default var)

@@ -35,6 +35,7 @@ my_number = input("Please enter a number : ");
 %                 an integer (e.g. : 554)
 %            or   a   float (e.g. : 0.44)
 %        or even  a   negative number (e.g. : -0.53)
+%        or even  a   complex number (e.g. : complex(2,3) or 1+2i)
 disp(my_number);
 
 % See: https://www.mathworks.com/help/matlab/ref/disp.html
@@ -43,7 +44,7 @@ disp(my_number);
 % variable name
 % input: array
 
-my_string = input(" Please enter a string: ", 's');
+my_string = input(" Please enter a string: ", 's'); % s : format specifier
 % Here we must specify the 's' keyword in input(...)
 % Otherwise we get an error
 disp(my_string);
@@ -64,6 +65,31 @@ disp(my_vector'); % displaying column vector
 % and: https://fr.wikipedia.org/wiki/Matrice_transpos%C3%A9e
 
 
+%{
+---------------------------------------------------------------------------
+IN := {0, 1, 2, 3, 4, 5, ...} (entiers naturels : uint) 
+est inclus dans Z/
+Z/ := -IN Union {0} Union IN := {..., -4, -3, -2, -1, 0, 1, 2, 3, 4, ... }
+(entiers relatifs) (int)
+est inclus ID
+ID := {numerator / 10^n ; où : numérateur est dans Z/} (décimaux)
+est inclus IQ
+IQ := {numerator / denominator ; où : numerator dans Z/ et 
+deniminator dans Z/ et deniminator =/= 0} (les rationnels)
+est inclus dans IR
+IR := ]-oo, +oo[ (droite réelle : tout nombre)
+est inclus dans IC (double)
+IC := {a+ib ; (a,b) dans IRxIR et sqrt(i) := -1}; (complex)
+IR \ IQ : les irrationnels donc notamment sqrt(2), pi ...
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+1 octet = 1 byte := 8 bits = [0000 0000]
+Bin : base 2 {0,1}
+Octal : base 8 {0,1,2,3,4,5,6,7}
+Décimal : base 10 {0,1,2,3,4,5,6,7,8,9}
+Hexadécimal : base 16 {0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F}
+---------------------------------------------------------------------------
 
 %}
 
@@ -88,7 +114,6 @@ disp(class(my_string_1))
 
 my_string_3 = "Forming a string from a char array.";
 disp(class(my_string_3))
-
 
 % Boolean / logical
 my_boolean = true;

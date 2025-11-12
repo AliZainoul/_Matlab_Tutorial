@@ -10,9 +10,9 @@ name = input('What is your name? ', 's');
 
 % Checking if there is an entry, then printing the name 
 % otherwise do nothing
-greetings = hello_name(name);
-if ~isempty(greetings)
-    disp(greetings)
+msg = hello_name(name);
+if ~isempty(msg)
+    disp(msg)
 end
 % A statement of type "if" must have an "end" keyword
 % i.e: if condition 
