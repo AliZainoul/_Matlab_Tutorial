@@ -2,13 +2,16 @@
 % Define two vectors with specified elements as line vectors (1XN)
 vector1 = [1, 2, 3, 4, 5];
 vector2 = [6 7 8 9 10];
+col_vector = [11; 12; 13; 14; 15];
 
 % Display the vectors
 % Display the contents of vector1 and vector2
-disp('Vector 1:');
+disp('Vector 1: (line vector)');
 disp(vector1);
-disp('Vector 2:');
+disp('Vector 2: (line vector)');
 disp(vector2);
+disp('Vector 3: (column vector)');
+disp(col_vector);
 
 % Vector addition
 % Perform element-wise addition of vector1 and vector2
