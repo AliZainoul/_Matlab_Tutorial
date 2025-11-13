@@ -14,7 +14,7 @@ if size(A, 1) ~= size(A, 2) || size(A, 1) ~= length(b)
     error('The size of matrix A and/or vector b is incorrect.');
 end
 
-% Perform LU decomposition of matrix A
+% Perform LU decomposition of matrix A (lu is a buitlin function)
 [L, U, P] = lu(A);
 
 % Solve the linear system Ax = b

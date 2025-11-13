@@ -1,7 +1,7 @@
 % Creation of two vectors
-% Define two vectors with specified elements
+% Define two vectors with specified elements as line vectors (1XN)
 vector1 = [1, 2, 3, 4, 5];
-vector2 = [6, 7, 8, 9, 10];
+vector2 = [6 7 8 9 10];
 
 % Display the vectors
 % Display the contents of vector1 and vector2
@@ -22,6 +22,20 @@ subtraction_result = vector2 - vector1;
 disp('Subtraction of vectors:');
 disp(subtraction_result);
 
+% Scalar multiplication
+disp('Scalar multiplication:');
+SCALAR = 9;
+right_scalar_product_vector = SCALAR * vector1;
+scalar_product_vector = vector2 * SCALAR;
+disp(right_scalar_product_vector);
+disp(scalar_product_vector);
+
+% Transpose of a vector
+disp('Transpose of a vector:');
+transposed_vector_column = vector1' ;
+disp(transposed_vector_column);
+disp(all(vector1'' == vector1));
+
 % Element-wise multiplication
 % Perform element-wise multiplication of vector1 and vector2
 elementwise_multiplication_result = vector1 .* vector2;
@@ -40,10 +54,12 @@ dot_product_result = dot(vector1, vector2);
 disp('Dot product of vectors:');
 disp(dot_product_result);
 
+v = [3 4 8];
+w = [5 2 4];
 % Cross product (for vectors of size 3)
 % Check if both vectors are of size 3 and calculate the cross product if true
-if length(vector1) == 3 && length(vector2) == 3
-    cross_product_result = cross(vector1, vector2);
+if length(v) == 3 && length(w) == 3
+    cross_product_result = cross(v, w);
     disp('Cross product of vectors:');
     disp(cross_product_result);
 else
@@ -64,12 +80,13 @@ disp(sequential_vector2);
 
 % Creating vectors with step
 % Create a vector with specified step using the colon operator
-vector_with_step = 1:2:10;
+vector_with_step_odds = 1:2:10;
 disp('Vector with step (1:2:10):');
-disp(vector_with_step);
+disp(vector_with_step_odds);
 
 % Appending an element to a vector using the colon operator
 % Append an element to a vector using the colon operator
 vector_with_append = [1:3, 10];
 disp('Vector with append ([1:3, 10]):');
 disp(vector_with_append);
+
