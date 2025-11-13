@@ -1,15 +1,27 @@
 % Creation of two matrices
 % Define two matrices with specified elements
+% size of matrix_1 (3x3)
 matrix_1 = [
     100, 2, 3; 
     4, 5, 6; 
     7, 8, 9
 ];
+
+% size of matrix_1 (3x3)
 matrix_2 = [
     9, 6, 7;
     2, 3, 4; 
     1, 2, 1
 ];
+
+matrix_3 = [
+    9, 6, 7, 3;
+    2, 3, 4, 2; 
+    1, 2, 1, 8;
+];
+
+% size of vec (4,1) (column vector)
+vec = [3; 2; 8; 9];
 
 % Display the matrices
 % Display the contents of matrix_1 and matrix_2
@@ -17,6 +29,15 @@ disp('Matrix 1:');
 disp(matrix_1);
 disp('Matrix 2:');
 disp(matrix_2);
+disp('Matrix 3:');
+disp(matrix_3);
+
+
+% Product of matrix and vector :
+disp('Product of matrix and vector :')
+% res_vec will have size (3x4) * (4,1) = (3x1)
+res_vec_col = matrix_3 * vec; % (3x1)
+disp(res_vec_col);
 
 % Matrix addition
 % Perform element-wise addition of matrix_1 and matrix_2
@@ -44,6 +65,7 @@ disp(elementwise_division_result);
 
 % Matrix multiplication
 % Perform matrix multiplication of matrix_1 and matrix_2
+% matrix_1 (3x3) * matrix_2 (3x3) = (3x3)
 matrix_multiplication_result = matrix_1 * matrix_2;
 disp('Matrix multiplication result:');
 disp(matrix_multiplication_result);
