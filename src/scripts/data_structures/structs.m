@@ -44,7 +44,6 @@ array_table = table(person1, person2);
 display_field = @(x) disp(x);
 for i = 1 : width(array_table)
     disp(class(array_table(:,i)))
-
     currentPerson = array_table(:,i).Variables;
     structfun(display_field, currentPerson)
 end
