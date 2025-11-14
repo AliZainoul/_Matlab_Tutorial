@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <title>Mini-Cours: Développement d'Interfaces Graphiques avec MATLAB</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #0076a8;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #0076a8;
+            font-size: 28px;
+            margin: 10px 0;
+        }
+        
+        .header .subtitle {
+            color: #666;
+            font-size: 18px;
+            font-style: italic;
+        }
+        
+        .author-info {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f0f8ff;
+            border-left: 4px solid #0076a8;
+        }
+        
+        .author-info p {
+            margin: 5px 0;
+        }
+        
+        h2 {
+            color: #0076a8;
+            border-bottom: 2px solid #0076a8;
+            padding-bottom: 5px;
+            margin-top: 30px;
+            page-break-after: avoid;
+        }
+        
+        h3 {
+            color: #005a87;
+            margin-top: 20px;
+            page-break-after: avoid;
+        }
+        
+        .concept-box {
+            background: #f9f9f9;
+            border-left: 4px solid #0076a8;
+            padding: 15px;
+            margin: 15px 0;
+            page-break-inside: avoid;
+        }
+        
+        .concept-title {
+            font-weight: bold;
+            color: #0076a8;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        .code-block {
+            background: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 12px;
+            overflow-x: auto;
+            margin: 15px 0;
+            page-break-inside: avoid;
+        }
+        
+        .code-comment {
+            color: #008000;
+        }
+        
+        .key-point {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 10px 15px;
+            margin: 15px 0;
+            page-break-inside: avoid;
+        }
+        
+        .example {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 10px 15px;
+            margin: 15px 0;
+            page-break-inside: avoid;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            page-break-inside: avoid;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        th {
+            background: #0076a8;
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #0076a8;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+        }
+        
+        .toc {
+            background: #f0f8ff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .toc li {
+            margin: 8px 0;
+            padding-left: 20px;
+        }
+        
+        .toc li::before {
+            content: "▸ ";
+            color: #0076a8;
+            font-weight: bold;
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            
+            .no-print {
+                display: none;
+            }
+            
+            h2, h3 {
+                page-break-after: avoid;
+            }
+            
+            .concept-box, .code-block, .key-point, .example {
+                page-break-inside: avoid;
+            }
+        }
+        
+        .download-btn {
+            display: inline-block;
+            background: #0076a8;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        
+        .download-btn:hover {
+            background: #005a87;
+        }
+    </style>
+    <script>
+async function generatePDF() {
+    const { jsPDF } = window.jspdf;
+
+    // Sélection du contenu à exporter
+    const content = document.body;
+
+    // Désactivation des éléments "no-print"
+    const noPrintElems = document.querySelectorAll('.no-print');
+    noPrintElems.forEach(elem => elem.style.display = 'none');
+
+    // Capture via html2canvas
+    const canvas = await html2canvas(content, {
+        scale: 2,
+        useCORS: true
+    });
+
+    const imgData = canvas.toDataURL('image/png');
+    const pdf = new jsPDF('p', 'mm', 'a4');
+
+    // Calcul des dimensions
+    const pageWidth = 210;
+    const pageHeight = 297;
+    const imgWidth = pageWidth;
+    const imgHeight = canvas.height * pageWidth / canvas.width;
+
+    let heightLeft = imgHeight;
+    let position = 0;
+
+    // Ajout de la première page
+    pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+    heightLeft -= pageHeight;
+
+    // Ajouter pages supplémentaires si nécessaire
+    while (heightLeft > 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+    }
+
+    // Enregistrer le fichier
+    pdf.save('Mini-Cours-MATLAB-GUI.pdf');
+
+    // Réactiver les éléments no-print
+    noPrintElems.forEach(elem => elem.style.display = 'block');
+}
+</script>
+
+</head>
+<body>
+    <div class="header">
+        <h1>Mini-Cours: Développement d'Interfaces Graphiques avec MATLAB</h1>
+        <div class="subtitle">Concepts Fondamentaux de GUI/IHM à travers une Calculatrice</div>
+    </div>
+    
+    <div class="author-info">
+        <p><strong>Auteur:</strong> Ali Zainoul and Claude AI</p>
+        <p><strong>Email:</strong> ali.zainoul.az@gmail.com</p>
+        <p><strong>Date:</strong> Novembre 2024</p>
+    </div>
+    
+    <div class="no-print" style="text-align: center;">
+        <button class="download-btn" onclick="generatePDF()">📄 Télécharger en PDF</button>
+    </div>
+    
+    <div class="toc">
+        <h3>Table des Matières</h3>
+        <ul>
+            <li>Introduction aux GUI/IHM avec MATLAB</li>
+            <li>Architecture MVC et Programmation Orientée Objet</li>
+            <li>Gestion des Composants Visuels</li>
+            <li>Systèmes de Layout et Positionnement</li>
+            <li>Gestion des Événements (Event-Driven Programming)</li>
+            <li>Compatibilité Cross-Version</li>
+            <li>Patterns de Conception GUI</li>
+            <li>Bonnes Pratiques et Optimisation</li>
+        </ul>
+    </div>
+
+    <h2>1. Introduction aux GUI/IHM avec MATLAB</h2>
+    
+    <div class="concept-box">
+        <div class="concept-title">Concept Fondamental: Interface Graphique Utilisateur (GUI/IHM)</div>
+        <p>Une GUI (Graphical User Interface) ou IHM (Interface Homme-Machine) est un système qui permet l'interaction entre l'utilisateur et le programme à travers des éléments visuels interactifs plutôt que des lignes de commande.</p>
+    </div>
+    
+    <p>MATLAB App Designer utilise une approche orientée objet pour créer des interfaces graphiques. Notre calculatrice illustre tous les concepts clés d'une application GUI moderne.</p>
+    
+    <div class="code-block">
+<span class="code-comment">% Structure de base d'une application MATLAB</span>
+classdef calculator_exported < matlab.apps.AppBase
+    <span class="code-comment">% Héritage de la classe AppBase fournie par MATLAB</span>
+    <span class="code-comment">% Cela donne accès aux fonctionnalités de base des GUI</span>
+end
+    </div>
+    
+    <div class="key-point">
+        <strong>Point Clé:</strong> L'héritage de <code>matlab.apps.AppBase</code> fournit l'infrastructure nécessaire pour gérer le cycle de vie de l'application, l'enregistrement des composants, et la communication avec MATLAB.
+    </div>
+
+    <h2>2. Architecture MVC et Programmation Orientée Objet</h2>
+    
+    <div class="concept-box">
+        <div class="concept-title">Concept: Modèle-Vue-Contrôleur (MVC)</div>
+        <p>Le pattern MVC sépare l'application en trois composants interconnectés:</p>
+        <ul>
+            <li><strong>Modèle</strong>: Les données et la logique métier</li>
+            <li><strong>Vue</strong>: L'interface utilisateur visuelle</li>
+            <li><strong>Contrôleur</strong>: La logique qui gère les interactions</li>
+        </ul>
+    </div>
+    
+    <h3>2.1 Organisation des Propriétés</h3>
+    
+    <div class="code-block">
+<span class="code-comment">% VUE: Composants visuels (public pour App Designer)</span>
+properties (Access = public)
+    UIFigure                matlab.ui.Figure
+    ResultTextArea          matlab.ui.control.TextArea
+    PlusButton              matlab.ui.control.Button
+    <span class="code-comment">% ... autres composants visuels</span>
+end
+
+<span class="code-comment">% MODÈLE: État interne de l'application (private)</span>
+properties (Access = private)
+    UseLegacyTextArea (1,1) logical = false
+end
+
+<span class="code-comment">% CONFIGURATION: Constantes immuables</span>
+properties (Constant, Access = private)
+    BUTTON_LAYOUT = {'C','Delete','(',')'; ...}
+    LEGACY_YEAR_THRESHOLD = 2019
+end
+    </div>
+    
+    <div class="key-point">
+        <strong>Principe d'Encapsulation:</strong> Les propriétés publiques exposent la vue, les propriétés privées cachent l'implémentation, et les constantes définissent la configuration immuable.
+    </div>
+
+    <h2>3. Gestion des Composants Visuels</h2>
+    
+    <div class="concept-box">
+        <div class="concept-title">Concept: Hiérarchie de Composants</div>
+        <p>Les GUI sont construites comme une hiérarchie d'objets visuels, chaque composant ayant un parent. Cette structure arborescente facilite la gestion et le positionnement.</p>
+    </div>
+    
+    <h3>3.1 Création de la Fenêtre Principale</h3>
+    
+    <div class="code-block">
+function createFigure(app)
+    <span class="code-comment">% UIFigure = conteneur racine de l'application</span>
+    app.UIFigure = uifigure('Visible', 'off');
+    app.UIFigure.Position = [100, 100, 640, 480];
+    app.UIFigure.Name = 'Calculator';
+    
+    <span class="code-comment">% Masquer la fenêtre pendant la construction</span>
+    <span class="code-comment">% Améliore l'expérience utilisateur (pas de "flash")</span>
+end
+    </div>
+    
+    <div class="example">
+        <strong>Exemple Pratique:</strong> La propriété <code>Visible = 'off'</code> pendant la construction évite que l'utilisateur voie les composants se positionner un par un. Une fois tout construit, on affiche la fenêtre complète.
+    </div>
+    
+    <h3>3.2 Types de Composants GUI</h3>
+    
+    <table>
+        <tr>
+            <th>Type</th>
+            <th>Classe MATLAB</th>
+            <th>Usage dans la Calculatrice</th>
+        </tr>
+        <tr>
+            <td>Figure</td>
+            <td>matlab.ui.Figure</td>
+            <td>Fenêtre principale de l'application</td>
+        </tr>
+        <tr>
+            <td>Layout</td>
+            <td>matlab.ui.container.GridLayout</td>
+            <td>Organisation en grille des boutons</td>
+        </tr>
+        <tr>
+            <td>Label</td>
+            <td>matlab.ui.control.Label</td>
+            <td>Étiquette "Result"</td>
+        </tr>
+        <tr>
+            <td>TextArea</td>
+            <td>matlab.ui.control.TextArea</td>
+            <td>Affichage de l'expression/résultat</td>
+        </tr>
+        <tr>
+            <td>Button</td>
+            <td>matlab.ui.control.Button</td>
+            <td>Tous les boutons (0-9, +, -, ×, ÷, etc.)</td>
+        </tr>
+    </table>
+
+    <h2>4. Systèmes de Layout et Positionnement</h2>
+    
+    <div class="concept-box">
+        <div class="concept-title">Concept: Gestionnaires de Layout</div>
+        <p>Un layout manager contrôle automatiquement la position et la taille des composants enfants selon des règles définies. Cela rend l'interface responsive et maintenable.</p>
+    </div>
+    
+    <h3>4.1 GridLayout - Organisation en Grille</h3>
+    
+    <div class="code-block">
+<span class="code-comment">% Création d'une grille 6×4</span>
+app.GridLayout = uigridlayout(app.UIFigure);
+app.GridLayout.ColumnWidth = {'1x','1x','1x','1x'};
+app.GridLayout.RowHeight = {'1x','1x','1x','1x','1x','1x'};
+
+<span class="code-comment">% Placement d'un composant dans la grille</span>
+app.ResultTextArea.Layout.Row = 1;
+app.ResultTextArea.Layout.Column = [2, 4];  <span class="code-comment">% Span sur 3 colonnes</span>
+    </div>
+    
+    <div class="key-point">
+        <strong>Avantages du GridLayout:</strong>
+        <ul>
+            <li>Redimensionnement automatique des composants</li>
+            <li>Alignement cohérent sans calculs manuels</li>
+            <li>Support du spanning (fusion de cellules)</li>
+            <li>Adaptation aux différentes tailles d'écran</li>
+        </ul>
+    </div>
+    
+    <h3>4.2 Création Dynamique de Composants</h3>
+    
+    <div class="code-block">
+<span class="code-comment">% Principe DRY: Ne pas répéter le code</span>
+function createButtons(app)
+    [nRows, nCols] = size(app.BUTTON_LAYOUT);
+    btnHandles = cell(nRows, nCols);
+    
+    <span class="code-comment">% Boucle pour créer tous les boutons</span>
+    for r = 1:nRows
+        for c = 1:nCols
+            btn = uibutton(app.GridLayout, 'push');
+            btn.Text = app.BUTTON_LAYOUT{r, c};
+            btn.Layout.Row = r + 1;
+            btn.Layout.Column = c;
+            btnHandles{r, c} = btn;
+        end
+    end
+end
+    </div>
+    
+    <div class="example">
+        <strong>Avantage:</strong> Pour modifier la disposition des boutons, il suffit de changer la matrice <code>BUTTON_LAYOUT</code>. Le code de création reste inchangé - c'est le principe de séparation des données et de la logique.
+    </div>
+
+    <h2>5. Gestion des Événements (Event-Driven Programming)</h2>
+    
+    <div class="concept-box">
+        <div class="concept-title">Concept: Programmation Événementielle</div>
+        <p>Dans une GUI, le flux d'exécution est déterminé par les actions de l'utilisateur (clics, saisies, etc.). Le programme attend des événements et réagit via des callbacks.</p>
+    </div>
+    
+    <h3>5.1 Structure d'un Callback</h3>
+    
+    <div class="code-block">
+<span class="code-comment">% ENREGISTREMENT du callback (dans startupFcn)</span>
+app.PlusButton.ButtonPushedFcn = @(~,~) app.operatorButtonPushed('+');
+    │                │                │      │
+    │                │                │      └─ Méthode appelée
+    │                │                └─ Fonction anonyme
+    │                └─ Propriété événement
+    └─ Composant source
+
+<span class="code-comment">% DÉFINITION du callback (méthode)</span>
+function operatorButtonPushed(app, op)
+    app.append(op);  <span class="code-comment">% Action à effectuer</span>
+end
+    </div>
+    
+    <div class="key-point">
+        <strong>Pattern Observer:</strong> Le composant (Subject) notifie l'application (Observer) quand un événement se produit. Ce découplage permet de changer facilement le comportement sans modifier le composant.
+    </div>
+    
+    <h3>5.2 Organisation des Callbacks par Catégorie</h3>
+    
+    <div class="code-block">
+function startupFcn(app)
+    <span class="code-comment">% Groupement logique des callbacks</span>
+    app.registerDigitCallbacks();
+    app.registerOperatorCallbacks();
+    app.registerParenthesisCallbacks();
+    app.registerUtilityCallbacks();
+end
+
+function registerDigitCallbacks(app)
+    <span class="code-comment">% Structure de données pour éviter la répétition</span>
+    digitButtons = {
+        app.ZeroButton,  '0';
+        app.OneButton,   '1';
+        app.TwoButton,   '2';
+        <span class="code-comment">% ...</span>
+    };
+    
+    <span class="code-comment">% Boucle d'enregistrement</span>
+    for i = 1:size(digitButtons, 1)
+        btn = digitButtons{i, 1};
+        val = digitButtons{i, 2};
+        btn.ButtonPushedFcn = @(~,~) app.digitButtonPushed(val);
+    end
+end
+    </div>
+    
+    <div class="example">
+        <strong>Maintenabilité:</strong> Cette approche modulaire facilite l'ajout de nouveaux boutons ou la modification des comportements existants sans toucher au reste du code.
+    </div>
+
+    <h2>6. Compatibilité Cross-Version</h2>
+    
+    <div class="concept-box">
+        <div class="concept-title">Concept: Abstraction des Différences de Version</div>
+        <p>Les API évoluent entre versions. Une bonne pratique consiste à détecter les différences et à créer une couche d'abstraction pour maintenir la compatibilité.</p>
+    </div>
+    
+    <h3>6.1 Détection de Version</h3>
+    
+    <div class="code-block">
+function detectVersion(app)
+    <span class="code-comment">% Récupération des informations de version</span>
+    v = ver('MATLAB');
+    year = str2double(v.Date(end-3:end));
+    
+    <span class="code-comment">% Flag pour adapter le comportement</span>
+    app.UseLegacyTextArea = (year <= app.LEGACY_YEAR_THRESHOLD);
+end
+    </div>
+    
+    <h3>6.2 Couche d'Abstraction</h3>
+    
+    <div class="code-block">
+<span class="code-comment">% API unifiée indépendante de la version</span>
+function txt = getText(app)
+    if app.UseLegacyTextArea
+        <span class="code-comment">% R2019-: Value est un cell array</span>
+        if isempty(app.ResultTextArea.Value)
+            txt = "";
+        else
+            txt = string(app.ResultTextArea.Value{1});
+        end
+    else
+        <span class="code-comment">% R2020+: Value est un string</span>
+        txt = string(app.ResultTextArea.Value);
+    end
+end
+
+function setText(app, txt)
+    if app.UseLegacyTextArea
+        app.ResultTextArea.Value = {char(txt)};
+    else
+        app.ResultTextArea.Value = txt;
+    end
+end
+    </div>
+    
+    <div class="key-point">
+        <strong>Principe d'Isolation:</strong> Le reste du code appelle uniquement <code>getText()</code> et <code>setText()</code>, sans se soucier de la version de MATLAB. La complexité est isolée dans ces deux méthodes.
+    </div>
+
+    <h2>7. Patterns de Conception GUI</h2>
+    
+    <h3>7.1 Pattern: Séparation de la Logique Métier</h3>
+    
+    <div class="code-block">
+<span class="code-comment">% MAUVAISE pratique: logique métier dans le callback</span>
+function equalsButtonPushed_BAD(app)
+    expr = app.getText();
+    expr = replace(expr, "x", "*");
+    expr = replace(expr, "÷", "/");
+    try
+        result = eval(expr);
+        app.setText(num2str(result));
+    catch
+        app.setText("Error");
+    end
+end
+
+<span class="code-comment">% BONNE pratique: séparation claire</span>
+function equalsButtonPushed(app)
+    app.evaluateExpression();  <span class="code-comment">% Callback minimal</span>
+end
+
+function evaluateExpression(app)
+    <span class="code-comment">% Logique métier isolée et testable</span>
+    expr = app.getText();
+    expr = app.normalizeExpression(expr);
+    try
+        result = eval(expr);
+        app.setText(num2str(result));
+    catch ME
+        app.setText("Error");
+        warning('Calculator:EvaluationError', ...
+                'Failed: %s', ME.message);
+    end
+end
+    </div>
+    
+    <h3>7.2 Pattern: Validation et Normalisation</h3>
+    
+    <div class="code-block">
+function normalizedExpr = normalizeExpression(~, expr)
+    <span class="code-comment">% Transformation des symboles d'affichage</span>
+    <span class="code-comment">% vers des opérateurs MATLAB valides</span>
+    
+    operatorMappings = {
+        'x', '*';
+        '÷', '/'
+    };
+    
+    normalizedExpr = expr;
+    for i = 1:size(operatorMappings, 1)
+        displayOp = operatorMappings{i, 1};
+        matlabOp = operatorMappings{i, 2};
+        normalizedExpr = replace(normalizedExpr, displayOp, matlabOp);
+    end
+end
+    </div>
+    
+    <div class="example">
+        <strong>Extensibilité:</strong> Pour ajouter de nouveaux opérateurs (puissance, racine, etc.), il suffit d'ajouter une ligne dans <code>operatorMappings</code> et de créer le bouton correspondant.
+    </div>
+    
+    <h3>7.3 Pattern: Gestion d'Erreurs Robuste</h3>
+    
+    <div class="code-block">
+try
+    result = eval(expr);
+    app.setText(num2str(result));
+catch ME
+    <span class="code-comment">% Feedback utilisateur</span>
+    app.setText("Error");
+    
+    <span class="code-comment">% Logging pour le développeur</span>
+    warning('Calculator:EvaluationError', ...
+            'Failed to evaluate: %s\nReason: %s', ...
+            expr, ME.message);
+end
+    </div>
+    
+    <div class="key-point">
+        <strong>Double Niveau de Gestion:</strong>
+        <ul>
+            <li>Message simple pour l'utilisateur final ("Error")</li>
+            <li>Détails techniques dans les logs pour le débogage</li>
+        </ul>
+    </div>
+
+    <h2>8. Bonnes Pratiques et Optimisation</h2>
+    
+    <h3>8.1 Principe DRY (Don't Repeat Yourself)</h3>
+    
+    <table>
+        <tr>
+            <th>Avant (Répétitif)</th>
+            <th>Après (DRY)</th>
+        </tr>
+        <tr>
+            <td>
+                <pre>app.ZeroButton.ButtonPushedFcn = @(~,~) app.digitButtonPushed('0');
+app.OneButton.ButtonPushedFcn = @(~,~) app.digitButtonPushed('1');
+app.TwoButton.ButtonPushedFcn = @(~,~) app.digitButtonPushed('2');
+...
+</pre>
+            </td>
+            <td>
+                <pre>digitButtons = {
+    app.ZeroButton, '0';
+    app.OneButton, '1';
+    app.TwoButton, '2';
+    ...
+};
+for i = 1:size(digitButtons, 1)
+    btn = digitButtons{i, 1};
+    val = digitButtons{i, 2};
+    btn.ButtonPushedFcn = @(~,~) app.digitButtonPushed(val);
+end</pre>
+            </td>
+        </tr>
+    </table>
+    
+    <h3>8.2 Documentation Professionnelle</h3>
+    
+    <div class="code-block">
+function evaluateExpression(app)
+    % EVALUATEEXPRESSION Parse and compute mathematical expression
+    %
+    % SYNTAX:
+    %   evaluateExpression(app)
+    %
+    % DESCRIPTION:
+    %   Retrieves current expression, converts display operators to
+    %   MATLAB operators, evaluates the expression, and displays
+    %   the result. Shows "Error" if evaluation fails.
+    %
+    % EXAMPLE:
+    %   Input:  "2x(3+4)"
+    %   Output: "14"
+    %
+    % SEE ALSO: normalizeExpression
+    
+    <span class="code-comment">% ... code ...</span>
+end
+    </div>
+    
+    <h3>8.3 Optimisation des Performances</h3>
+    
+    <div class="concept-box">
+        <div class="concept-title">Stratégies d'Optimisation GUI</div>
+        <ul>
+            <li><strong>Construction Invisible:</strong> Créer tous les composants avec <code>Visible='off'</code>, puis afficher en une fois</li>
+            <li><strong>Pré-allocation:</strong> Utiliser des cell arrays pour stocker les handles de boutons</li>
+            <li><strong>Validation des Types:</strong> Utiliser <code>(1,1) logical</code> pour les propriétés scalaires</li>
+            <li><strong>Constants:</strong> Définir les valeurs de configuration comme <code>Constant</code> pour éviter les modifications accidentelles</li>
+        </ul>
+    </div>
+    
+    <h3>8.4 Architecture Modulaire</h3>
+    
+    <div class="code-block">
+<span class="code-comment">% Construction hiérarchique et modulaire</span>
+function createComponents(app)
+    app.createFigure();           <span class="code-comment">% Conteneur principal</span>
+    app.createDisplayArea();      <span class="code-comment">% Zone d'affichage</span>
+    app.createButtons();          <span class="code-comment">% Boutons interactifs</span>
+    app.UIFigure.Visible = 'on';  <span class="code-comment">% Révélation finale</span>
+end
+    </div>
+    
+    <div class="key-point">
+        <strong>Avantages de la Modularité:</strong>
+        <ul>
+            <li>Code facile à lire et à maintenir</li>
+            <li>Tests unitaires possibles sur chaque module</li>
+            <li>Réutilisation des composants dans d'autres projets</li>
+            <li>Débuggage simplifié (isolation des problèmes)</li>
+        </ul>
+    </div>
+
+    <h2>9. Cycle de Vie d'une Application GUI</h2>
+    
+    <div class="concept-box">
+        <div class="concept-title">Concept: Cycle de Vie</div>
+        <p>Une application GUI traverse plusieurs phases depuis sa création jusqu'à sa destruction. Comprendre ce cycle est essentiel pour une gestion correcte des ressources.</p>
+    </div>
+    
+    <div class="code-block">
+<span class="code-comment">% 1. CONSTRUCTION</span>
+function app = calculator_exported()
+    detectVersion(app);        <span class="code-comment">% Initialisation de l'état</span>
+    createComponents(app);     <span class="code-comment">% Création de la vue</span>
+    registerApp(app, app.UIFigure);  <span class="code-comment">% Enregistrement MATLAB</span>
+    startupFcn(app);          <span class="code-comment">% Configuration des callbacks</span>
+    
+    if nargout == 0
+        clear app;            <span class="code-comment">% Mode autonome (pas de variable)</span>
+    end
+end
+
+<span class="code-comment">% 2. EXÉCUTION (boucle événementielle MATLAB)</span>
+<span class="code-comment">%    L'application attend les événements utilisateur</span>
+
+<span class="code-comment">% 3. DESTRUCTION</span>
+function delete(app)
+    delete(app.UIFigure);     <span class="code-comment">% Nettoyage des ressources</span>
+end
+    </code>
+    
+    <h2>10. Exercices Pratiques</h2>
+    
+    <div class="example">
+        <h4>Exercice 1: Ajouter un Bouton Racine Carrée</h4>
+        <p><strong>Objectif:</strong> Étendre la calculatrice avec une fonction racine carrée (√).</p>
+        <p><strong>Étapes:</strong></p>
+        <ol>
+            <li>Modifier <code>BUTTON_LAYOUT</code> pour inclure '√'</li>
+            <li>Créer <code>SqrtButton</code> dans les propriétés</li>
+            <li>Assigner le handle dans <code>assignButtonHandles()</code></li>
+            <li>Ajouter le mapping 'sqrt' dans <code>normalizeExpression()</code></li>
+            <li>Enregistrer le callback dans <code>registerOperatorCallbacks()</code></li>
+        </ol>
+    </div>
+    
+    <div class="example">
+        <h4>Exercice 2: Historique des Calculs</h4>
+        <p><strong>Objectif:</strong> Sauvegarder les 5 derniers calculs effectués.</p>
+        <p><strong>Concepts à utiliser:</strong></p>
+        <ul>
+            <li>Nouvelle propriété <code>CalculationHistory</code> (cell array)</li>
+            <li>Composant <code>ListBox</code> pour afficher l'historique</li>
+            <li>Méthode <code>addToHistory()</code> pour gérer la liste</li>
+            <li>Callback de sélection pour recharger un calcul</li>
+        </ul>
+    </div>
+    
+    <div class="example">
+        <h4>Exercice 3: Validation d'Expression</h4>
+        <p><strong>Objectif:</strong> Empêcher l'évaluation d'expressions invalides.</p>
+        <p><strong>Points à implémenter:</strong></p>
+        <ul>
+            <li>Vérifier l'équilibre des parenthèses</li>
+            <li>Détecter les opérateurs consécutifs (ex: "5++3")</li>
+            <li>Valider les points décimaux (un seul par nombre)</li>
+            <li>Désactiver le bouton "=" si l'expression est invalide</li>
+        </ul>
+    </div>
+
+    <h2>11. Concepts Avancés</h2>
+    
+    <h3>11.1 Pattern: State Management</h3>
+    
+    <div class="concept-box">
+        <div class="concept-title">Gestion d'État Centralisée</div>
+        <p>Pour des applications complexes, centraliser l'état dans une structure dédiée facilite le débogage et la maintenance.</p>
+    </div>
+    
+    <div class="code-block">
+<span class="code-comment">% Structure d'état centralisée</span>
+properties (Access = private)
+    AppState struct = struct(...
+        'CurrentExpression', '', ...
+        'LastResult', [], ...
+        'ErrorState', false, ...
+        'CalculationHistory', {{}} ...
+    )
+end
+
+<span class="code-comment">% Méthodes de mise à jour d'état</span>
+function updateState(app, field, value)
+    app.AppState.(field) = value;
+    app.refreshUI();  <span class="code-comment">% Synchroniser la vue</span>
+end
+
+function refreshUI(app)
+    <span class="code-comment">% Mettre à jour tous les composants selon l'état</span>
+    app.setText(app.AppState.CurrentExpression);
+    if app.AppState.ErrorState
+        app.ResultTextArea.FontColor = 'red';
+    else
+        app.ResultTextArea.FontColor = 'black';
+    end
+end
+    </div>
+    
+    <h3>11.2 Pattern: Command Pattern pour Undo/Redo</h3>
+    
+    <div class="code-block">
+<span class="code-comment">% Définition d'une commande</span>
+classdef CalculatorCommand
+    properties
+        Type        <span class="code-comment">% 'append', 'delete', 'clear', 'evaluate'</span>
+        Data        <span class="code-comment">% Données associées</span>
+        PreviousState
+    end
+    
+    methods
+        function execute(cmd, app)
+            <span class="code-comment">% Exécuter la commande</span>
+            cmd.PreviousState = app.getText();
+            switch cmd.Type
+                case 'append'
+                    app.append(cmd.Data);
+                case 'delete'
+                    app.deleteButtonPushed();
+                <span class="code-comment">% ...</span>
+            end
+        end
+        
+        function undo(cmd, app)
+            <span class="code-comment">% Annuler la commande</span>
+            app.setText(cmd.PreviousState);
+        end
+    end
+end
+    </div>
+    
+    <h3>11.3 Callbacks Asynchrones</h3>
+    
+    <div class="code-block">
+<span class="code-comment">% Opérations longues sans bloquer l'UI</span>
+function complexCalculationButtonPushed(app)
+    <span class="code-comment">% Désactiver les boutons pendant le calcul</span>
+    app.enableButtons(false);
+    app.setText("Calcul en cours...");
+    
+    <span class="code-comment">% Calcul asynchrone</span>
+    afterEach(parfeval(@app.performComplexCalculation, 1, expr), ...
+              @(result) app.onCalculationComplete(result));
+end
+
+function onCalculationComplete(app, result)
+    app.setText(num2str(result));
+    app.enableButtons(true);
+end
+    </div>
+
+    <h2>12. Déploiement et Distribution</h2>
+    
+    <h3>12.1 Packaging de l'Application</h3>
+    
+    <div class="concept-box">
+        <div class="concept-title">MATLAB App Packaging</div>
+        <p>MATLAB permet de créer des fichiers .mlapp ou .exe pour distribuer votre application.</p>
+    </div>
+    
+    <table>
+        <tr>
+            <th>Format</th>
+            <th>Avantages</th>
+            <th>Inconvénients</th>
+        </tr>
+        <tr>
+            <td>.mlapp</td>
+            <td>
+                • Nécessite MATLAB<br>
+                • Éditable<br>
+                • Petit fichier
+            </td>
+            <td>
+                • Utilisateurs doivent avoir MATLAB
+            </td>
+        </tr>
+        <tr>
+            <td>.exe (Compiler)</td>
+            <td>
+                • Standalone<br>
+                • Pas besoin de MATLAB<br>
+                • Professionnel
+            </td>
+            <td>
+                • Nécessite MATLAB Compiler<br>
+                • Fichier volumineux<br>
+                • Runtime à installer
+            </td>
+        </tr>
+        <tr>
+            <td>Web App</td>
+            <td>
+                • Accessible par navigateur<br>
+                • Multi-plateforme<br>
+                • Pas d'installation
+            </td>
+            <td>
+                • Nécessite MATLAB Web App Server<br>
+                • Fonctionnalités limitées
+            </td>
+        </tr>
+    </table>
+    
+    <h3>12.2 Bonnes Pratiques de Déploiement</h3>
+    
+    <div class="key-point">
+        <strong>Checklist de Déploiement:</strong>
+        <ul>
+            <li>✓ Tester sur différentes versions de MATLAB</li>
+            <li>✓ Valider sur différentes résolutions d'écran</li>
+            <li>✓ Inclure une gestion d'erreurs robuste</li>
+            <li>✓ Fournir un fichier README avec instructions</li>
+            <li>✓ Versionner l'application (propriété Version)</li>
+            <li>✓ Inclure des informations de contact/support</li>
+            <li>✓ Tester les cas limites et erreurs utilisateur</li>
+        </ul>
+    </div>
+
+    <h2>13. Comparaison: GUIDE vs App Designer</h2>
+    
+    <table>
+        <tr>
+            <th>Aspect</th>
+            <th>GUIDE (Ancien)</th>
+            <th>App Designer (Moderne)</th>
+        </tr>
+        <tr>
+            <td>Architecture</td>
+            <td>Scripts + callbacks séparés</td>
+            <td>Classe orientée objet</td>
+        </tr>
+        <tr>
+            <td>Layout</td>
+            <td>Positionnement pixel absolu</td>
+            <td>Layout managers flexibles</td>
+        </tr>
+        <tr>
+            <td>Composants</td>
+            <td>UI Controls classiques</td>
+            <td>Composants web modernes</td>
+        </tr>
+        <tr>
+            <td>Partage de données</td>
+            <td>guidata(), handles</td>
+            <td>Propriétés de classe</td>
+        </tr>
+        <tr>
+            <td>Futur</td>
+            <td>Déprécié</td>
+            <td>Recommandé</td>
+        </tr>
+    </table>
+
+    <h2>14. Résumé des Concepts Clés</h2>
+    
+    <div class="concept-box">
+        <h3>Concepts Fondamentaux GUI/IHM</h3>
+        
+        <h4>1. Architecture et Organisation</h4>
+        <ul>
+            <li><strong>MVC:</strong> Séparation Modèle-Vue-Contrôleur</li>
+            <li><strong>POO:</strong> Encapsulation, héritage, modularité</li>
+            <li><strong>Hiérarchie:</strong> Arbre de composants parents-enfants</li>
+        </ul>
+        
+        <h4>2. Composants et Layout</h4>
+        <ul>
+            <li><strong>Conteneurs:</strong> Figure, Panel, GridLayout</li>
+            <li><strong>Contrôles:</strong> Button, TextArea, Label, etc.</li>
+            <li><strong>Layout Managers:</strong> Positionnement automatique</li>
+        </ul>
+        
+        <h4>3. Interaction et Événements</h4>
+        <ul>
+            <li><strong>Pattern Observer:</strong> Composants notifient l'application</li>
+            <li><strong>Callbacks:</strong> Réponse aux actions utilisateur</li>
+            <li><strong>Event Loop:</strong> Boucle d'attente des événements</li>
+        </ul>
+        
+        <h4>4. Bonnes Pratiques</h4>
+        <ul>
+            <li><strong>DRY:</strong> Ne pas répéter le code</li>
+            <li><strong>Séparation des préoccupations:</strong> Logique vs présentation</li>
+            <li><strong>Gestion d'erreurs:</strong> Feedback utilisateur + logging</li>
+            <li><strong>Documentation:</strong> Code auto-documenté</li>
+        </ul>
+    </div>
+
+    <h2>15. Ressources Complémentaires</h2>
+    
+    <div class="concept-box">
+        <h3>Pour Aller Plus Loin</h3>
+        
+        <h4>Documentation MATLAB</h4>
+        <ul>
+            <li><code>doc uifigure</code> - Documentation des figures</li>
+            <li><code>doc matlab.ui.control</code> - Tous les composants UI</li>
+            <li><code>doc matlab.apps.AppBase</code> - Classe de base</li>
+        </ul>
+        
+        <h4>Exemples Intégrés</h4>
+        <pre>openExample('matlab/CreateASimpleAppExample')
+openExample('matlab/UseTabsToOrganizeAnAppExample')</pre>
+        
+        <h4>Concepts Additionnels à Explorer</h4>
+        <ul>
+            <li>Menus et barres d'outils personnalisés</li>
+            <li>Graphiques interactifs (plots, axes)</li>
+            <li>Tables et arbres de données</li>
+            <li>Boîtes de dialogue personnalisées</li>
+            <li>Intégration avec des bases de données</li>
+            <li>Applications multi-fenêtres</li>
+        </ul>
+    </div>
+
+    <h2>16. Glossaire des Termes</h2>
+    
+    <table>
+        <tr>
+            <th>Terme</th>
+            <th>Définition</th>
+        </tr>
+        <tr>
+            <td>Callback</td>
+            <td>Fonction appelée en réponse à un événement utilisateur</td>
+        </tr>
+        <tr>
+            <td>Handle</td>
+            <td>Référence vers un objet graphique MATLAB</td>
+        </tr>
+        <tr>
+            <td>Layout Manager</td>
+            <td>Système de positionnement automatique des composants</td>
+        </tr>
+        <tr>
+            <td>UIFigure</td>
+            <td>Fenêtre principale d'une application App Designer</td>
+        </tr>
+        <tr>
+            <td>Property</td>
+            <td>Attribut d'un objet (données ou état)</td>
+        </tr>
+        <tr>
+            <td>Method</td>
+            <td>Fonction associée à une classe</td>
+        </tr>
+        <tr>
+            <td>Event</td>
+            <td>Action déclenchée par l'utilisateur ou le système</td>
+        </tr>
+        <tr>
+            <td>Encapsulation</td>
+            <td>Masquage de l'implémentation interne d'un objet</td>
+        </tr>
+        <tr>
+            <td>DRY</td>
+            <td>Don't Repeat Yourself - principe de non-répétition</td>
+        </tr>
+        <tr>
+            <td>MVC</td>
+            <td>Model-View-Controller - pattern architectural</td>
+        </tr>
+    </table>
+
+    <h2>Conclusion</h2>
+    
+    <div class="concept-box">
+        <p>Le développement d'interfaces graphiques avec MATLAB combine plusieurs disciplines de l'informatique:</p>
+        <ul>
+            <li><strong>Programmation Orientée Objet:</strong> Structuration et réutilisabilité</li>
+            <li><strong>Patterns de Conception:</strong> Solutions éprouvées aux problèmes récurrents</li>
+            <li><strong>Interface Utilisateur:</strong> Ergonomie et expérience utilisateur</li>
+            <li><strong>Architecture Logicielle:</strong> Organisation maintenable du code</li>
+        </ul>
+        
+        <p>La calculatrice présentée dans ce cours illustre tous ces concepts dans une application simple mais complète. Chaque ligne de code a été pensée pour démontrer une bonne pratique ou un concept fondamental.</p>
+        
+        <p><strong>Prochaines Étapes:</strong></p>
+        <ol>
+            <li>Implémenter les exercices proposés</li>
+            <li>Créer vos propres applications à partir de zéro</li>
+            <li>Explorer les composants avancés (plots, tables, tabs)</li>
+            <li>Étudier des applications complexes existantes</li>
+            <li>Contribuer à la communauté MATLAB File Exchange</li>
+        </ol>
+    </div>
+    
+    <div class="footer">
+        <p><strong>© 2024 Ali Zainoul (ali.zainoul.az@gmail.com)</strong></p>
+        <p>Mini-Cours: Développement d'Interfaces Graphiques avec MATLAB</p>
+        <p>Document généré avec MATLAB App Designer - Version 1.0</p>
+        <p style="margin-top: 10px; font-size: 10px;">
+            Ce document peut être librement utilisé à des fins éducatives.<br>
+            Pour toute question ou suggestion: ali.zainoul.az@gmail.com
+        </p>
+    </div>
+
+</body>
+</html>

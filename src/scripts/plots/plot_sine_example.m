@@ -25,11 +25,11 @@
 
 %% Step 1: Define x values
 x = 0:pi/100:2*pi;
-% x is a 1xN vector over [0, 2*pi] with step pi/100
+% x is a 1xN = 1x201 vector over [0, 2*pi] with step pi/100
 
 %% Step 2: Compute sine values
 y = sin(x);
-% y is a 1xN vector containing sin(x) for each element of x
+% y is a 1xN = 1x201 vector containing sin(x) for each element of x
 
 %% Step 3: Plot the sine function
 plot(x, y)

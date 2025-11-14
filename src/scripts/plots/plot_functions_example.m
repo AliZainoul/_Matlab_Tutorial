@@ -46,12 +46,12 @@ y4 = cos(x);        % cos(x)
 %% Step 3: Plot the functions
 figure
 plot(x, y1, x, y2, '--', x, y3, ':', x, y4, '-.')
-title('Plot of sin({x, x-0.25 x-0.5}) and cos(x) in [0, 2\pi]')
+title('Plot of sin(\{x, x-0.25 x-0.5\}) and cos(x) in [0, 2\pi]')
 legend('sin(x)','sin(x-0.25)','sin(x-0.5)', 'cos(x)')
 xlabel('Values of x on interval [0, 2\pi]')
 ylabel('Values of sin({x, x-0.25 x-0.5}) and cos(x) in [0, 2\pi] resp.')
 
 %% Step 4: Customize axes
 hold on
-ylim([-1 1])
-% Optional: Use xlim([0 pi]) to zoom into a specific interval
+ylim([0 1])
+xlim([0 pi])

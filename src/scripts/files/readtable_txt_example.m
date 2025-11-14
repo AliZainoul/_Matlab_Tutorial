@@ -49,11 +49,13 @@ fprintf('\n--- Examples: Accessing data ---\n');
 
 % Print a single column (Age)
 fprintf('\nAges of all students:\n');
-disp(students_table.age)
+age_students = students_table.age;
+disp(age_students);
 
 % Print a single row (2nd student)
 fprintf('\nSecond student row:\n');
-disp(students_table(2,:))  % Row 2, all columns
+second_student = students_table(2,:);
+disp(second_student)  % Row 2, all columns
 
 % Print a single cell (3rd student, course)
 fprintf('\nThird student main course:\n');
@@ -74,17 +76,21 @@ else
         fprintf('%s\n', students_table.student(i));
     end
 end
+students = students_table.student;
+disp(students);
 
 % Print all data in one line for the first student
 fprintf('\nFirst student on one line:\n');
 if iscell(students_table.student)
-    fprintf('%s | %d | %s\n', ...
+    fprintf('%s | %d | %d | %s \n', ...
         students_table.student{1}, ...
+        students_table.id(1), ...
         students_table.age(1), ...
         students_table.course{1});
 else
-    fprintf('%s | %d | %s\n', ...
+    fprintf('%s | %d | %d | %s \n', ...
         students_table.student(1), ...
+        students_table.id(1), ...
         students_table.age(1), ...
         students_table.course(1));
 end
