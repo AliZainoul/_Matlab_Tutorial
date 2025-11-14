@@ -219,14 +219,20 @@ disp('Modified cell array:');
 disp(cell_array);
 
 % Concatenating cells
-concatenated_cell = cat(2, cell_array, {'additional', [6, 7, 8]});
-disp('Concatenated cell array:');
-disp(concatenated_cell);
+con_cell = {'additional', [6, 7, 8]};
+concatenated_cell_vertically = cat(1, cell_array', con_cell');
+disp('Concatenated cell array (concatenated_cell_vertically):');
+disp(concatenated_cell_vertically);
+
+concatenated_cell_horizontally = cat(2, cell_array, con_cell);
+disp('Concatenated cell array (concatenated_cell_horizontally):');
+disp(concatenated_cell_horizontally);
 
 cell_array_same = {1, 2, 3, 4, 5};
 
 % Converting cells to array
-cell_to_array = cell2mat(cell_array_same); % Converts the cell to array if elements of the cell are the same
+cell_to_array = cell2mat(cell_array_same); 
+% Converts the cell to array if elements of the cell are the same
 disp('Converted cell to array:');
 disp(cell_to_array);
 

@@ -9,7 +9,7 @@ fprintf('Age: %d\n', person1.age);
 fprintf('Gender: %s\n', person1.gender);
 
 % Display the struct
-disp('person1 = ')
+disp('person1 = ');
 disp(person1);
 
 % Modifying struct fields
@@ -27,17 +27,21 @@ address1.zipcode = '12345';
 person1.address = address1;
 
 % Display the nested struct
-%disp(person1);
+disp(person1);
 
 person2 = struct('name','Ali ZAINOUL', 'age', 31, 'gender', 'Male');
-%disp(person2);
+disp(person2);
+
 % Define a nested struct
 address2.street = 'a street name';
 address2.city = 'Montpellier';
 address2.zipcode = '34000';
 person2.address = address2;
 
+disp(person2);
 
+
+% Creating a table with the two persons
 array_table = table(person1, person2);
 
 
